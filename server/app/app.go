@@ -30,14 +30,20 @@ func (app *App) StartListening() {
 }
 
 func (app *App) handleConnection(conn net.Conn) {
-	var wMsg []byte
-	fmt.Println("Reading message from client")
-	wMsg = lib.ReadMessage(conn)
-	fmt.Println("Client sent message: " + string(wMsg))
-	p := core.ParseQuery(wMsg)
-	fn := p.Fn
-	arg := p.Load
-	res := fn(arg)
-	fmt.Println("Writing to client: " + string(res))
-	conn.Write(res)
+	for {
+		var wMsg []byte
+		fmt.Print("Reading message from client: ")
+		wMsg = lib.ReadMessage(conn)
+		if string(wMsg) == "" {
+			fmt.Println("\nClient disconnected")
+			break
+		}
+		fmt.Println(string(wMsg))
+		p := core.ParseQuery(wMsg)
+		fn := p.Fn
+		arg := p.Load
+		res := fn(arg)
+		//fmt.Println("Writing to client: " + string(res))
+		lib.WriteMessage(res, conn)
+	}
 }

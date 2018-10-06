@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+// Use net.Conn.Write for sending small messages (size < 1024 bytes)
+// In other cases use this function
 func WriteMessage(message []byte, con net.Conn) {
 	cycles := strconv.Itoa((len(message) / 1024) + 1)
 	r_based := []rune(cycles)
@@ -22,6 +24,8 @@ func WriteMessage(message []byte, con net.Conn) {
 	con.Write(message)
 }
 
+// Use net.Conn.Read for reading small messages (size < 1024 bytes)
+// In other cases use this function
 func ReadMessage(conn net.Conn) []byte {
 	var wMsg []byte
 	var message = make([]byte, 1024)

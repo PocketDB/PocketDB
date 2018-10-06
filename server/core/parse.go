@@ -18,5 +18,5 @@ func ParseQuery(msg []byte) parseResult {
 func createTable(query string) []byte {
 	// implementation to create a table
 	// return result of the operation
-	return []byte("Output of the query")
+	return []byte("<Output of the query>")
 }
