@@ -31,8 +31,9 @@ class Client:
                 target = command.split()[1:]
                 target = ' '.join(target)
                 rst = []
+                words.pop()
                 for word in words:
-                    if match(target, word):
+                    if match(target, word.split(',')[1].strip()):
                         rst.append(word)
                 print(">Matched results:")
                 print(rst)
