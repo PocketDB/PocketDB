@@ -1,4 +1,3 @@
-import hashlib
 from os import urandom
 from hash_ops2 import get_sha1
 from base64 import b64encode
@@ -11,7 +10,6 @@ def register_user(password, filename='encrypted', username='admin'):
     fp = open(filename, 'a')
     fp.write(username)
     fp.write("\n")
-    # fp.write(hashlib.sha224(password.encode('utf8')).hexdigest())
     fp.write(get_sha1(password))
     fp.write("\n")
     return True
